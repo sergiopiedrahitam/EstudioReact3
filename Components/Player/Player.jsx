@@ -11,7 +11,7 @@ export default function Player({playerName, playerSimbol, children}){
       }
     
     const playerNameField = isEditing
-    ? (<input type="text" name="" id="" required/>)
+    ? (<input type="text" name="" id="" required defaultValue={playerName}/>)
     : (<span className='player-name'>{playerName}</span>)
 
     const buttonChangeValue = isEditing

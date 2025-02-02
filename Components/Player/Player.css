@@ -9,7 +9,7 @@
 }
 
 #playersContainer li {
-  display: flex;
+  display:flex;
   align-items: center;
   width: 50%;
   border: 2px solid transparent;
@@ -35,13 +35,13 @@
   transition: color 0.2s;
   padding: 5px;
   text-align: center;
-  border: 1px solid #e7872d;
+  border: 1px solid #05a916;
   border-radius: 7px;
   margin-left: 1rem;
 }
 
 #playersContainer button:hover {
-  color: rgba(240, 44, 172, 0.548);
+  color: rgba(44, 240, 135, 0.548);
 }
 
 .player {

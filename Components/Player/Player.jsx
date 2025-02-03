@@ -4,14 +4,17 @@ import { useState } from "react";
 
 export default function Player({playerName, playerSimbol, children}){
     const [isEditing,setIsEditing]= useState(false)
+    console.log("estoy ejecutando el componete Player");
+    
 
     function handleChangeClick(){
-        setIsEditing(!isEditing);
-        // asi se cambia el valor del booleano cada vez que hagas click, dependiento del valor que tenga
+        setIsEditing((isEditing)=>!isEditing); //valor => true
+        // setIsEditing((isEditing)=>!isEditing); //valor => false
       }
     
     const playerNameField = isEditing
     ? (<input type="text" name="" id="" required defaultValue={playerName}/>)
+    // ? (<input type="text" name="" id="" required placeholder={playerName}/>)
     : (<span className='player-name'>{playerName}</span>)
 
     const buttonChangeValue = isEditing

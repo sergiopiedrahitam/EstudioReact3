@@ -1,18 +1,21 @@
-import './App.css'
-import Player from '../Components/Player/Player.jsx'
+import './App.css';
+import Player from '../Components/Player/Player.jsx';
+import GameBoard from '../Components/GameBoard/GameBoard.jsx';
 
 function App() {
 
   return (
     <>
       <main>
-                <div id="game-container">
-                <ol id="playersContainer">
-                    <Player initialName={"Jugador 1"} initialSimbol={"X"}></Player>
-                    <Player initialName={"Jugador 2"} initialSimbol={"O"}></Player>
-                </ol>
-                </div>
-            </main>
+        <div id="game-container">
+          <ol id="playersContainer">
+              <Player initialName={"Jugador 1"} initialSimbol={"X"}></Player>
+              <Player initialName={"Jugador 2"} initialSimbol={"O"}></Player>
+          </ol>
+          <GameBoard />
+        </div>
+      </main>
+      
     </>
   )
 }

@@ -7,7 +7,7 @@ const INITIAL_GAME_BOARD =[
     [null, null, null]
  ]
 
-export default function GameBoard(){
+export default function GameBoard({onSelectSquare}){
     const [gameBoard, setGameBoard]=useState(INITIAL_GAME_BOARD);
 
     function handleClickSquare(rowIndex, colIndex){
@@ -20,7 +20,9 @@ export default function GameBoard(){
             console.log(updatedGameBoard);
             return updatedGameBoard;
         });
+        onSelectSquare();
     }
+   
 
     return(
         <ol id="gameBoard">

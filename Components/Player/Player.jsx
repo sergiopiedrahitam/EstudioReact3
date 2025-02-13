@@ -2,11 +2,11 @@ import { use } from "react";
 import "./Player.css"
 import { useState } from "react";
 
-export default function Player({initialName, initialSimbol, children}){
+export default function Player({initialName, initialSymbol, children}){
 
     const [isEditing,setIsEditing]= useState(false)
     const [playerName,setPlayerName] = useState(initialName)
-    const [simbolName,setSimbolName] = useState(initialSimbol)
+    const [symbolName,setSymbolName] = useState(initialSymbol)
    
     function handleChangeClick(){
         setIsEditing((isEditing)=>!isEditing); //valor => true
@@ -17,17 +17,17 @@ export default function Player({initialName, initialSimbol, children}){
             setPlayerName(event.target.value);
         }
 
-    function handleSimbolChange(event){
-        setSimbolName(event.target.value);
+    function handleSymbolChange(event){
+        setSymbolName(event.target.value);
     }
     
     const playerNameField = isEditing
     ? (<input type="text" name="" id="" required placeholder={playerName} onChange={(event)=>handleNameChange(event)}/>)
     : (<span className='player-name'>{playerName}</span>)
 
-    const playerNameSimbol = isEditing
-    ? (<input type="text" name="" id="" required placeholder={simbolName} onChange={(event)=>handleSimbolChange(event)}/>)
-    : <span className='player-simbol'>{simbolName}</span>
+    const playerNameSymbol = isEditing
+    ? (<input type="text" name="" id="" required placeholder={symbolName} onChange={(event)=>handleSymbolChange(event)}/>)
+    : <span className='player-symbol'>{symbolName}</span>
 
     const buttonChangeValue = isEditing
     ? "Guardar"
@@ -35,10 +35,10 @@ export default function Player({initialName, initialSimbol, children}){
 
     return (
         <>
-            <li>
+            <li className="active">
                 <span className='player'>
                     {playerNameField}
-                    {playerNameSimbol}
+                    {playerNameSymbol}
                     {/* <span className='player-simbol'>{playerSimbol}</span> */}
                 </span>
                 <button onClick={()=>handleChangeClick()}>{buttonChangeValue}</button>

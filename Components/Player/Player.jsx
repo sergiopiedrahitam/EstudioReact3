@@ -3,6 +3,7 @@ import "./Player.css"
 import { useState } from "react";
 
 export default function Player({initialName, initialSimbol, children}){
+
     const [isEditing,setIsEditing]= useState(false)
     const [playerName,setPlayerName] = useState(initialName)
     const [simbolName,setSimbolName] = useState(initialSimbol)
@@ -12,9 +13,9 @@ export default function Player({initialName, initialSimbol, children}){
         // setIsEditing((isEditing)=>!isEditing); //valor => false
       }
     
-    function handleNameChange(event){
-        setPlayerName(event.target.value);
-    }
+        function handleNameChange(event){
+            setPlayerName(event.target.value);
+        }
 
     function handleSimbolChange(event){
         setSimbolName(event.target.value);

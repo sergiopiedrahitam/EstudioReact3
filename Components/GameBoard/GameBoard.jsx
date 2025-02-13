@@ -1,23 +1,35 @@
 import "./GameBoard.css";
 import { useState } from "react";
 
-const GAME_BOARD =[
+const INITIAL_GAME_BOARD =[
     [null, null, null],
     [null, null, null],
     [null, null, null]
- 
-]
+ ]
 
 export default function GameBoard(){
+    const [gameBoard, setGameBoard]=useState(INITIAL_GAME_BOARD);
+
+    function handleClickSquare(rowIndex, colIndex){
+        console.log (rowIndex +"--"+ colIndex);
+
+        setGameBoard((prevGameBoard)=>{
+            const updatedGameBoard = [...prevGameBoard.map((cols)=>[...cols])];
+            console.log(prevGameBoard);
+            updatedGameBoard[rowIndex][colIndex]= "X";
+            console.log(updatedGameBoard);
+            return updatedGameBoard;
+        });
+    }
 
     return(
         <ol id="gameBoard">
-          {GAME_BOARD.map((row, rowIndex)=>
+          {gameBoard.map((row, rowIndex)=>
             <li key={rowIndex}>
                 <ol>
                     {row.map((col,colIndex)=>
                         <li key={colIndex}>
-                            <button>X</button>
+                            <button onClick={()=>handleClickSquare(rowIndex,colIndex)}>{col}</button>
                         </li>)}
                 </ol>
             </li>)}  

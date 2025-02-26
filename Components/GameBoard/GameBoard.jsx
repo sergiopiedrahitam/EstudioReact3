@@ -8,6 +8,7 @@ for (let index = 0; index <= 2; index++)
 export default function GameBoard({ onSelectedSquare, gameTurns }) {
  
   const gameBoard = INITIAL_GAME_BOARD
+ 
   for(const turn of gameTurns){
     const {square, symbol} = turn;
     const {rowIndex, colIndex} = square; 

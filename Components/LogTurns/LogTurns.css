@@ -26,6 +26,10 @@
   #logTurns li.highlighted {
     background-color: #e2e1d5;
     color: white;
+    ;
   }
 
+  .estilos{
+    text-transform: uppercase;
+  }
   

@@ -8,6 +8,22 @@ function App() {
 
   const [gameTurns, setGameTurns] = useState([]);
   const [activePlayer, setActivePlayer] = useState('X');
+  const [playerNames, setPlayerNames] = useState({name1:' Jugador 1', name2: 'Jugador 2'});
+
+   function handleChangeName(event, keyName){
+            setPlayerNames((...prevPlayerNames) => {
+              
+              const prevsPlayerNames = {...prevPlayerNames};
+              
+              const otherKey = keyName === 'name1'? 'name2':'name1';
+              const newPlayerNames = {
+                [keyName]: event.target.value,
+                [otherKey] : prevsPlayerNames[0][otherKey],
+              };
+              return newPlayerNames;
+            }
+          );
+        }
 
   function handleSelectedSquare(rowIndex, colIndex){
     setActivePlayer((lastActivePlayer)=> (activePlayer === 'X') ? 'O':'X');
@@ -28,11 +44,21 @@ function App() {
       <main>
         <div id="game-container">
           <ol id="playersContainer" className='highlight-player '>
-              <Player initialName={"Jugador 1"} playerSymbol="X" isActive={activePlayer == 'X'} ></Player>
-              <Player initialName={"Jugador 2"} playerSymbol="O" isActive={activePlayer == 'O'}></Player>
+              <Player 
+              namePlayer={playerNames.name1}
+              onChangeName = {handleChangeName} 
+              keyName = 'name1'
+              playerSymbol="X" isActive={activePlayer == 'X'} >
+              </Player>
+              <Player 
+              namePlayer={playerNames.name2}
+              onChangeName = {handleChangeName} 
+              keyName = 'name2'
+              playerSymbol="O" isActive={activePlayer == 'O'}>
+              </Player>
           </ol>
           <GameBoard gameTurns={gameTurns} onSelectedSquare={handleSelectedSquare}/>
-          <LogTurns gameTurns={gameTurns}/>
+          <LogTurns playerNames = {playerNames} gameTurns={gameTurns}/>
         </div>
 
       </main>

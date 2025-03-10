@@ -1,10 +1,13 @@
 import './App.css';
+import { WINNING_COMBINATIONS } from '../data/winningCombinations.js';
 import Player from '../Components/Player/Player.jsx';
 import GameBoard from '../Components/GameBoard/GameBoard.jsx';
 import LogTurns from '../Components/LogTurns/LogTurns.jsx';
 import { useState } from 'react';
 
 function App() {
+
+  WINNING_COMBINATIONS
 
   function setActivePlayer(gameTurns){
     let activePlayer ='X';

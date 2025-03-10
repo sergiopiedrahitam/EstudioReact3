@@ -24,6 +24,7 @@ function App() {
               
               const prevsPlayerNames = {...prevPlayerNames};
               
+              
               const otherKey = keyName === 'name1'? 'name2':'name1';
               const newPlayerNames = {
                 [keyName]: event.target.value,
@@ -34,12 +35,18 @@ function App() {
           );
         }
 
-  function handleSelectedSquare(rowIndex, colIndex){
+  function handleSelectedSquare(rowIndex, colIndex, gameBoard){
     
     setGameTurns((prevGameTurns)=>{
-      
+
       const actualSymbol = setActivePlayer(prevGameTurns);
-      
+
+      if (prevGameTurns.length>=4){
+        const newGameBoard = [...gameBoard];
+        newGameBoard[rowIndex][colIndex]=actualSymbol;
+        console.log(newGameBoard);
+      };
+       
       const actualGameTurns = [
         {square:{rowIndex:rowIndex, colIndex:colIndex},symbol:actualSymbol},
         ...prevGameTurns

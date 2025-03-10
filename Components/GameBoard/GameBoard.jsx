@@ -23,7 +23,7 @@ export default function GameBoard({ onSelectedSquare, gameTurns }) {
             {row.map((col, colIndex) => (
               <li key={colIndex}>
                 <button onClick={() => {
-                  if (gameBoard[rowIndex][colIndex] === null) onSelectedSquare(rowIndex, colIndex)}}>
+                  if (gameBoard[rowIndex][colIndex] === null) onSelectedSquare(rowIndex, colIndex, gameBoard)}}>
                   {col}
                 </button>
               </li>

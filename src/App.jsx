@@ -6,8 +6,14 @@ import { useState } from 'react';
 
 function App() {
 
+  function setActivePlayer(gameTurns){
+    let activePlayer ='X';
+    activePlayer = (gameTurns.length>0 && gameTurns[0].symbol=="X")?"O":"X";
+    return activePlayer;
+  }
+
   const [gameTurns, setGameTurns] = useState([]);
-  const [activePlayer, setActivePlayer] = useState('X');
+  const activePlayer = setActivePlayer(gameTurns)
   const [playerNames, setPlayerNames] = useState({name1:' Jugador 1', name2: 'Jugador 2'});
 
    function handleChangeName(event, keyName){
@@ -26,11 +32,11 @@ function App() {
         }
 
   function handleSelectedSquare(rowIndex, colIndex){
-    setActivePlayer((lastActivePlayer)=> (activePlayer === 'X') ? 'O':'X');
+    
     setGameTurns((prevGameTurns)=>{
       
-      let actualSymbol="X";
-      if(gameTurns.length>0 && gameTurns[0].symbol=="X")actualSymbol="O"
+      const actualSymbol = setActivePlayer(prevGameTurns);
+      
       const actualGameTurns = [
         {square:{rowIndex:rowIndex, colIndex:colIndex},symbol:actualSymbol},
         ...prevGameTurns

@@ -7,7 +7,25 @@ import { useState } from 'react';
 
 function App() {
 
-  WINNING_COMBINATIONS
+  function setHasWinner(prevGameTurns, newGameBoard){
+    
+    if(prevGameTurns.length < 4)return false;
+    if (prevGameTurns.length>=4){
+      for (const combination of WINNING_COMBINATIONS){
+        let symbolsWinner = {
+          firstSymbol:newGameBoard[combination[0].row][combination[0].column],
+          secondSymbol:newGameBoard[combination[1].row][combination[1].column],
+          thirdSymbol: newGameBoard[combination[2].row][combination[2].column]
+        };
+        if(symbolsWinner.firstSymbol === symbolsWinner.secondSymbol && 
+          symbolsWinner.secondSymbol === symbolsWinner.thirdSymbol
+        ){
+          return true;
+        }
+      }
+      return false;
+  }
+ }
 
   function setActivePlayer(gameTurns){
     let activePlayer ='X';
@@ -39,16 +57,20 @@ function App() {
     
     setGameTurns((prevGameTurns)=>{
 
+      // setActivePlayer() es una funcion, no un estado, q alterna el valor de X
       const actualSymbol = setActivePlayer(prevGameTurns);
 
-      if (prevGameTurns.length>=4){
-        const newGameBoard = [...gameBoard];
-        newGameBoard[rowIndex][colIndex]=actualSymbol;
-        console.log(newGameBoard);
-      };
-       
+      let newGameBoard = [...gameBoard];
+      newGameBoard[rowIndex][colIndex]=actualSymbol;
+      // en la proxima linea, queda como parametro newGameBoard, aunque el profesor utilizo como pro gameBoard
+      // const hasWinner = setHasWinner(prevGameTurns, newGameBoard);
+      const hasWinner = setHasWinner(prevGameTurns, newGameBoard); 
+             
       const actualGameTurns = [
-        {square:{rowIndex:rowIndex, colIndex:colIndex},symbol:actualSymbol},
+        {square:{rowIndex:rowIndex, colIndex:colIndex},
+        symbol:actualSymbol,
+        hasWinner: hasWinner,
+        },
         ...prevGameTurns
       ];
       return actualGameTurns

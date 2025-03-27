@@ -17,10 +17,10 @@ function App() {
           secondSymbol:newGameBoard[combination[1].row][combination[1].column],
           thirdSymbol: newGameBoard[combination[2].row][combination[2].column]
         };
-        if(symbolsWinner.firstSymbol === symbolsWinner.secondSymbol && 
+        if(symbolsWinner.firstSymbol!=null && symbolsWinner.firstSymbol === symbolsWinner.secondSymbol && 
           symbolsWinner.secondSymbol === symbolsWinner.thirdSymbol
         ){
-          return true;
+          return {isWinner: true, winningCombination:combination};
         }
       }
       return false;
@@ -29,7 +29,10 @@ function App() {
 
   function setActivePlayer(gameTurns){
     let activePlayer ='X';
-    activePlayer = (gameTurns.length>0 && gameTurns[0].symbol=="X")?"O":"X";
+    
+    activePlayer = (gameTurns.length>0 && gameTurns[0].symbol=="X")?"O":"X"; 
+    if (gameTurns.length >4 && gameTurns[0].hasWinner) activePlayer = gameTurns[0].symbol;
+
     return activePlayer;
   }
 

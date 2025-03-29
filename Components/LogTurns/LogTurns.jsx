@@ -8,7 +8,7 @@ export default function LogTurns({playerNames, gameTurns}){
             es el ganador 👑
         </span>
     };
-   
+    let draftText = (<span> Nadie ha ganado la partida: empatados </span>);
     return(
         <>
             <ol id="logTurns">
@@ -19,6 +19,7 @@ export default function LogTurns({playerNames, gameTurns}){
 
                             <p> hay ganador?: {turn.hasWinner.isWinner ? 'SI, ASI ES!! ':'Nooo'}</p>
                             <p>{isWinner && winnerText(turn, playerNames)}</p>
+                            <p>{(gameTurns.length - index === 9 && !turn.hasWinner) && draftText}</p>
                             <p>Turno: {(gameTurns.length - index)} : <tex className='estilos'>{turn.symbol == "X"? playerNames.name1:playerNames.name2}</tex></p>
                             <p></p>
                             <p>

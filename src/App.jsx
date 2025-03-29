@@ -3,6 +3,7 @@ import { WINNING_COMBINATIONS } from '../data/winningCombinations.js';
 import Player from '../Components/Player/Player.jsx';
 import GameBoard from '../Components/GameBoard/GameBoard.jsx';
 import LogTurns from '../Components/LogTurns/LogTurns.jsx';
+import GameOver from '../Components/GameOver/GameOver.jsx';
 import { useState } from 'react';
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
     if (gameTurns.length >4 && gameTurns[0].hasWinner) activePlayer = gameTurns[0].symbol;
 
     return activePlayer;
-  }
+}
 
   const [gameTurns, setGameTurns] = useState([]);
   const activePlayer = setActivePlayer(gameTurns)
@@ -54,7 +55,7 @@ function App() {
               return newPlayerNames;
             }
           );
-        }
+}
 
   function handleSelectedSquare(rowIndex, colIndex, gameBoard){
     
@@ -80,6 +81,9 @@ function App() {
     });
   }
 
+  function handleRestartGame(){
+    setGameTurns([])
+  }
   return (
     <>
       <main>
@@ -98,6 +102,9 @@ function App() {
               playerSymbol="O" isActive={activePlayer == 'O'}>
               </Player>
           </ol>
+          {(gameTurns.length > 4 && gameTurns[0].hasWinner) && <GameOver title = '!Revancha!' handleRestartGame={handleRestartGame}></GameOver>}
+          {(gameTurns.length > 8 && !gameTurns[0].hasWinner) && <GameOver title = '!Empate!'handleRestartGame={handleRestartGame}></GameOver>}
+          
           <GameBoard gameTurns={gameTurns} onSelectedSquare={handleSelectedSquare}/>
           <LogTurns playerNames = {playerNames} gameTurns={gameTurns}/>
         </div>

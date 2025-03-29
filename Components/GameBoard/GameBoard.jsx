@@ -16,8 +16,10 @@ export default function GameBoard({ onSelectedSquare, gameTurns }) {
     }
   }
  
-  const gameBoard = INITIAL_GAME_BOARD
- 
+  //aqui llenamos el tablero con la informacion del gameTurns, 
+  // colocando el simbolo en el tablero
+  const gameBoard = [...INITIAL_GAME_BOARD.map((array)=>[...array])]
+
   for(const turn of gameTurns){
     const {square, symbol} = turn;
     const {rowIndex, colIndex} = square; 

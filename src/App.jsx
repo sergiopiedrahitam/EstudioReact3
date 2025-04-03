@@ -8,6 +8,22 @@ import { useState } from 'react';
 
 function App() {
 
+
+   const [playerSymbols, setPlayerSymbols] = useState({symbol1: 'X', symbol2:'O'});
+
+  function setActivePlayer(gameTurns, playerSymbols){
+    let activePlayer = playerSymbols.symbol1;
+    
+    activePlayer = (gameTurns.length>0 && gameTurns[0].symbol==playerSymbols.symbol1)?playerSymbols.symbol2:playerSymbols.symbol1; 
+    if (gameTurns.length >4 && gameTurns[0].hasWinner) activePlayer = gameTurns[0].symbol;
+
+    return activePlayer;
+}
+
+  const [gameTurns, setGameTurns] = useState([]);
+  const activePlayer = setActivePlayer(gameTurns, playerSymbols);
+  const [playerNames, setPlayerNames] = useState({name1:' Jugador 1', name2: 'Jugador 2'});
+ 
   function setHasWinner(prevGameTurns, newGameBoard){
     
     if(prevGameTurns.length < 4)return false;
@@ -28,41 +44,51 @@ function App() {
   }
  }
 
-  function setActivePlayer(gameTurns){
-    let activePlayer ='X';
-    
-    activePlayer = (gameTurns.length>0 && gameTurns[0].symbol=="X")?"O":"X"; 
-    if (gameTurns.length >4 && gameTurns[0].hasWinner) activePlayer = gameTurns[0].symbol;
+  function handleChangeName(event, keyName){
+    setPlayerNames((...prevPlayerNames) => {
+      
+      const prevsPlayerNames = {...prevPlayerNames};
+      
+      
+      const otherKey = keyName === 'name1'? 'name2':'name1';
+      const newPlayerNames = {
+        [keyName]: event.target.value,
+        [otherKey] : prevsPlayerNames[0][otherKey],
+      };
+      return newPlayerNames;
+    }
+    );
+  }
 
-    return activePlayer;
-}
-
-  const [gameTurns, setGameTurns] = useState([]);
-  const activePlayer = setActivePlayer(gameTurns)
-  const [playerNames, setPlayerNames] = useState({name1:' Jugador 1', name2: 'Jugador 2'});
-
-   function handleChangeName(event, keyName){
-            setPlayerNames((...prevPlayerNames) => {
-              
-              const prevsPlayerNames = {...prevPlayerNames};
-              
-              
-              const otherKey = keyName === 'name1'? 'name2':'name1';
-              const newPlayerNames = {
-                [keyName]: event.target.value,
-                [otherKey] : prevsPlayerNames[0][otherKey],
-              };
-              return newPlayerNames;
-            }
-          );
-}
+  function handleChangeSymbol(event, symbolKey, gameTurnsLength){
+    setPlayerSymbols((...prevPlayerSymbols) => {
+      
+      const prevsPlayerSymbols = {...prevPlayerSymbols};
+      
+      const otherKey = symbolKey === 'symbol1'? 'symbol2':'symbol1';
+      const newPlayerSymbols = {
+        [symbolKey]: event.target.value,
+        [otherKey] : prevsPlayerSymbols[0][otherKey],
+      };
+      if(gameTurnsLength>1){
+        alert('El simbolo solo puede cambiar en el primer turno de c/jugador');
+        return prevsPlayerSymbols[0];
+      }
+      if(newPlayerSymbols.symbol1 === newPlayerSymbols.symbol2){
+        alert('los simbolos no pueden ser iguales');
+        return prevsPlayerSymbols[0];
+      }
+      return newPlayerSymbols;
+    }
+    );
+  }
 
   function handleSelectedSquare(rowIndex, colIndex, gameBoard){
     
     setGameTurns((prevGameTurns)=>{
 
       // setActivePlayer() es una funcion, no un estado, q alterna el valor de X
-      const actualSymbol = setActivePlayer(prevGameTurns);
+      const actualSymbol = setActivePlayer(prevGameTurns, playerSymbols);
 
       let newGameBoard = [...gameBoard];
       newGameBoard[rowIndex][colIndex]=actualSymbol;
@@ -84,6 +110,7 @@ function App() {
   function handleRestartGame(){
     setGameTurns([])
   }
+
   return (
     <>
       <main>
@@ -93,20 +120,29 @@ function App() {
               namePlayer={playerNames.name1}
               onChangeName = {handleChangeName} 
               keyName = 'name1'
-              playerSymbol="X" isActive={activePlayer == 'X'} >
+              onChangeSymbol={handleChangeSymbol}
+              keySymbol= 'symbol1'
+              playerSymbol={playerSymbols.symbol1}
+              isActive={activePlayer ===playerSymbols.symbol1} 
+              gameTurnsLength = {gameTurns.length}>
               </Player>
               <Player 
               namePlayer={playerNames.name2}
               onChangeName = {handleChangeName} 
               keyName = 'name2'
-              playerSymbol="O" isActive={activePlayer == 'O'}>
+              onChangeSymbol={handleChangeSymbol}
+              keySymbol= 'symbol2'
+              playerSymbol={playerSymbols.symbol2}
+              isActive={activePlayer === playerSymbols.symbol2}
+              gameTurnsLength = {gameTurns.length}>
+              
               </Player>
           </ol>
           {(gameTurns.length > 4 && gameTurns[0].hasWinner) && <GameOver title = '!Revancha!' handleRestartGame={handleRestartGame}></GameOver>}
           {(gameTurns.length > 8 && !gameTurns[0].hasWinner) && <GameOver title = '!Empate!'handleRestartGame={handleRestartGame}></GameOver>}
           
           <GameBoard gameTurns={gameTurns} onSelectedSquare={handleSelectedSquare}/>
-          <LogTurns playerNames = {playerNames} gameTurns={gameTurns}/>
+          <LogTurns playerNames = {playerNames} playerSymbols = {playerSymbols} gameTurns={gameTurns}/>
         </div>
 
       </main>

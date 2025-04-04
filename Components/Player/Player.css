@@ -81,7 +81,15 @@
 }
 
 .player-symbol {
-  margin-left: 1rem;
+  
+  display:inline;
+  width: 10rem;
   font-size: 1.2rem;
   color: #e1dec7;
+  text-transform: uppercase;
+  margin: 0;
+  padding: 0.5rem;
+  border-radius: 4px;
+  text-overflow: ellipsis;
+  text-align: center;
 }

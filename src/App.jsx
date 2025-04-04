@@ -9,7 +9,7 @@ import { useState } from 'react';
 function App() {
 
 
-   const [playerSymbols, setPlayerSymbols] = useState({symbol1: 'X', symbol2:'O'});
+  const [playerSymbols, setPlayerSymbols] = useState({symbol1: 'X', symbol2:'O'});
 
   function setActivePlayer(gameTurns, playerSymbols){
     let activePlayer = playerSymbols.symbol1;
@@ -26,7 +26,7 @@ function App() {
  
   function setHasWinner(prevGameTurns, newGameBoard){
     
-    if(prevGameTurns.length < 4)return false;
+    if(prevGameTurns.length <4)return false;
     if (prevGameTurns.length>=4){
       for (const combination of WINNING_COMBINATIONS){
         let symbolsWinner = {
@@ -92,6 +92,7 @@ function App() {
 
       let newGameBoard = [...gameBoard];
       newGameBoard[rowIndex][colIndex]=actualSymbol;
+
       // en la proxima linea, queda como parametro newGameBoard, aunque el profesor utilizo como pro gameBoard
       // const hasWinner = setHasWinner(prevGameTurns, newGameBoard);
       const hasWinner = setHasWinner(prevGameTurns, newGameBoard); 
@@ -117,32 +118,33 @@ function App() {
         <div id="game-container">
           <ol id="playersContainer" className='highlight-player '>
               <Player 
-              namePlayer={playerNames.name1}
-              onChangeName = {handleChangeName} 
-              keyName = 'name1'
-              onChangeSymbol={handleChangeSymbol}
-              keySymbol= 'symbol1'
-              playerSymbol={playerSymbols.symbol1}
-              isActive={activePlayer ===playerSymbols.symbol1} 
-              gameTurnsLength = {gameTurns.length}>
+                namePlayer={playerNames.name1}
+                onChangeName = {handleChangeName} 
+                keyName = 'name1'
+                onChangeSymbol={handleChangeSymbol}
+                keySymbol= 'symbol1'
+                playerSymbol={playerSymbols.symbol1}
+                isActive={activePlayer === playerSymbols.symbol1} 
+                gameTurnsLength = {gameTurns.length}
+              >
               </Player>
               <Player 
-              namePlayer={playerNames.name2}
-              onChangeName = {handleChangeName} 
-              keyName = 'name2'
-              onChangeSymbol={handleChangeSymbol}
-              keySymbol= 'symbol2'
-              playerSymbol={playerSymbols.symbol2}
-              isActive={activePlayer === playerSymbols.symbol2}
-              gameTurnsLength = {gameTurns.length}>
-              
+                namePlayer={playerNames.name2}
+                onChangeName = {handleChangeName} 
+                keyName = 'name2'
+                onChangeSymbol={handleChangeSymbol}
+                keySymbol= 'symbol2'
+                playerSymbol={playerSymbols.symbol2}
+                isActive={activePlayer === playerSymbols.symbol2}
+                gameTurnsLength = {gameTurns.length}
+              >
               </Player>
           </ol>
+          <GameBoard gameTurns={gameTurns} onSelectedSquare={handleSelectedSquare}/>
+          <LogTurns playerNames = {playerNames} playerSymbols = {playerSymbols} gameTurns={gameTurns}/>
           {(gameTurns.length > 4 && gameTurns[0].hasWinner) && <GameOver title = '!Revancha!' handleRestartGame={handleRestartGame}></GameOver>}
           {(gameTurns.length > 8 && !gameTurns[0].hasWinner) && <GameOver title = '!Empate!'handleRestartGame={handleRestartGame}></GameOver>}
           
-          <GameBoard gameTurns={gameTurns} onSelectedSquare={handleSelectedSquare}/>
-          <LogTurns playerNames = {playerNames} playerSymbols = {playerSymbols} gameTurns={gameTurns}/>
         </div>
 
       </main>

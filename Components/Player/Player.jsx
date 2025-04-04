@@ -43,7 +43,7 @@ export default function Player({namePlayer, onChangeName, onChangeSymbol, keyNam
       <li className={isActive ? "active" : undefined}>
         <span className="player">
           {playerNameField}
-          <span></span>
+          
           {playerSymbolField}
         </span>
         <button onClick={() => handleClickButton()} disabled={!isActive}>
